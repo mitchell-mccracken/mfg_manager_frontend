@@ -10,22 +10,32 @@ class Quotes extends Component{
             quotes:{},
             quote: {},
             id: '',
+            showUpdate: false,
         }
         
-        this.handleEditQuote = this.handleEditQuote.bind(this)
+        // this.handleEditQuote = this.handleEditQuote.bind(this)
+        this.toggleShowUpdate = this.toggleShowUpdate.bind(this)
     }
 
-    handleEditQuote(event){
-        fetch(`${baseURL}quotes/${event.target.id}/`)
-        // console.log(`${baseURL}quotes/${event.target.id}`)
-        .then(data => { return data.json()} , err => console.log(err))
+    // *** decided to run this method from parent ***
+    // handleEditQuote(event){
+    //     this.toggleShowUpdate()
+    //     fetch(`${baseURL}quotes/${event.target.id}/`)
+    //     // console.log(`${baseURL}quotes/${event.target.id}`)
+    //     .then(data => { return data.json()} , err => console.log(err))
         
-        .then(parsedData =>
-          this.setState({
-            quote: parsedData,
-            id: event.target.id,
-        }) , err => console.log(err))
-    }
+    //     .then(parsedData =>
+    //       this.setState({
+    //         quote: parsedData,
+    //         id: event.target.id,
+    //     }) , err => console.log(err))
+    // }
+
+    toggleShowUpdate(){
+        this.setState({
+          showUpdate: !this.state.showUpdate
+        })
+      }
 
     render(){
         return(
@@ -51,7 +61,7 @@ class Quotes extends Component{
                                     <td>{quote.contact_name}</td>
                                     <td>{quote.q_date_created}</td>
                                     <td>{quote.q_title}</td>
-                                    <td><button onClick={this.handleEditQuote} id={quote.id}>EDIT</button></td>
+                                    <td><button onClick={this.props.handleEditQuote} id={quote.id}>EDIT</button></td>
                                     <td><button>DELETE</button></td>
                                 </tr>
                             )

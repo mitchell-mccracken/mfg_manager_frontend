@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Quotes from './components/Quotes'
 import CreateQuote from './components/CreateQuote'
+import UpdateQuote from './components/UpdateQuote'
 
 let baseURL;
 
@@ -17,6 +18,7 @@ class App extends Component {
       showCreateQuote: false,
       showLogin: false,
       showCreateUser: false,
+      showQuoteUpdate: false,
       userName: '',
       quotes: [],
       quote: {},
@@ -39,6 +41,11 @@ class App extends Component {
       showQuotes: !this.state.showQuotes
     })
   }
+  toggleShowQuoteUpdate(){
+    this.setState({
+      showQuoteUpdate: !this.state.showQuoteUpdate
+    })
+  }
 
   toggleShowCreateQuote(){
     this.setState({
@@ -55,12 +62,13 @@ class App extends Component {
   }
 
   handleEditQuote(event){
-    fetch(`${baseURL}quotes/${event.target.id}`)
+    this.toggleShowQuoteUpdate()
+    fetch(`${baseURL}quotes/${event.target.id}/`)
     .then(data => { return data.json()} , err => console.log(err))
     .then(parsedData => 
       this.setState({
         quote: parsedData,
-        id: event.target.tag,
+        id: parsedData.id,
     }) , err => console.log(err))
   }
 
@@ -87,6 +95,10 @@ class App extends Component {
           <button onClick={this.toggleShowCreateQuote}>Create Quote</button>
           <button>Create Open Order</button>
         </div>
+        {
+          this.state.showQuoteUpdate &&
+          <UpdateQuote quote={this.state.quote} />
+        }
         {
           this.state.showQuotes && 
           <Quotes quotes={this.state.quotes} handleEditQuote={this.handleEditQuote}/> 

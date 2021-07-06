@@ -38,7 +38,8 @@ class App extends Component {
 
   toggleShowQuotes(){
     this.setState({
-      showQuotes: !this.state.showQuotes
+      showQuotes: !this.state.showQuotes,
+      showQuoteUpdate: false,
     })
   }
   toggleShowQuoteUpdate(){

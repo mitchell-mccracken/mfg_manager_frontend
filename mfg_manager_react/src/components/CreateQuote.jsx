@@ -45,7 +45,6 @@ class CreateQuote extends Component{
         })
         .then(res => res.json())
         .then(resJson => {
-            // this.props.handleAddQuote
             this.setState({
                 customerName: '',
                 customerAddress: '',
@@ -55,6 +54,10 @@ class CreateQuote extends Component{
             })
         })
         .catch(error => console.log({'Error' : error}))
+        setTimeout(() => {      //I had to set this to get stop a memory leak warning
+            this.props.toggleShowCreateQuote()
+            this.props.getQuotes()
+        }, 200);
     }
 
 

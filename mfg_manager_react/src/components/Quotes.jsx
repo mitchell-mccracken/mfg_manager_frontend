@@ -35,7 +35,10 @@ class Quotes extends Component{
         this.setState({
           showUpdate: !this.state.showUpdate
         })
-      }
+    }
+
+    
+    
 
     render(){
         return(
@@ -62,7 +65,7 @@ class Quotes extends Component{
                                     <td>{quote.q_date_created}</td>
                                     <td>{quote.q_title}</td>
                                     <td><button onClick={this.props.handleEditQuote} id={quote.id}>EDIT</button></td>
-                                    <td><button>DELETE</button></td>
+                                    <td><button onClick={this.props.handleDeleteQuote} id={quote.id}>DELETE</button></td>
                                 </tr>
                             )
                         })}

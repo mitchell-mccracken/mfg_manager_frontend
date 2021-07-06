@@ -27,8 +27,10 @@ class App extends Component {
     this.getQuotes = this.getQuotes.bind(this)
     this.toggleShowQuotes = this.toggleShowQuotes.bind(this)
     this.toggleShowCreateQuote = this.toggleShowCreateQuote.bind(this)
+    this.toggleShowQuoteUpdate = this.toggleShowQuoteUpdate.bind(this)
     this.handleAddQuote = this.handleAddQuote.bind(this)
     this.handleEditQuote = this.handleEditQuote.bind(this)
+    this.handleDeleteQuote = this.handleDeleteQuote.bind(this)
   }
 
 
@@ -79,6 +81,27 @@ class App extends Component {
     .then(parsedData => this.setState({quotes: parsedData}), err => console.log(err))
   }
 
+  handleDeleteQuote(event) {
+    // console.log(event.target.id)
+    fetch(`${baseURL}quotes/${event.target.id}/`, {
+      method: 'DELETE'
+    })
+      .then(res => {
+        if(res.status === 200) {
+          const findIndex = this.state.quotes.findIndex(quote => quote._id === event.target.id)
+          const copyQuotes = [...this.state.quotes]
+          copyQuotes.splice(findIndex, 1)
+
+          this.setState({
+            quotes: copyQuotes
+          })
+        }
+      })
+      setTimeout(() => {
+        this.getQuotes()
+      }, 100)
+  }
+
 
   render(){
     return (
@@ -98,15 +121,15 @@ class App extends Component {
         </div>
         {
           this.state.showQuoteUpdate &&
-          <UpdateQuote quote={this.state.quote} />
+          <UpdateQuote quote={this.state.quote} toggleShowQuoteUpdate={this.toggleShowQuoteUpdate} getQuotes={this.getQuotes}/>
         }
         {
           this.state.showQuotes && 
-          <Quotes quotes={this.state.quotes} handleEditQuote={this.handleEditQuote}/> 
+          <Quotes quotes={this.state.quotes} handleEditQuote={this.handleEditQuote} handleDeleteQuote={this.handleDeleteQuote} /> 
         } 
         {
           this.state.showCreateQuote &&
-          <CreateQuote handleAddQuote={this.handleAddQuote}/>
+          <CreateQuote handleAddQuote={this.handleAddQuote} toggleShowCreateQuote={this.toggleShowCreateQuote} getQuotes={this.getQuotes}/>
 
         }
 

@@ -2,6 +2,8 @@ import {Component} from 'react'
 import Quotes from './components/Quotes'
 import CreateQuote from './components/CreateQuote'
 import UpdateQuote from './components/UpdateQuote'
+import RegisterUser from './components/RegisterUser'
+import LoginUser from './components/LoginUser'
 
 let baseURL;
 
@@ -16,13 +18,14 @@ class App extends Component {
       loggedIn: false,
       showQuotes: false,
       showCreateQuote: false,
-      showLogin: false,
-      showCreateUser: false,
+      showLoginUser: false,
+      showRegisterUser: false,
       showQuoteUpdate: false,
       userName: '',
       quotes: [],
       quote: {},
-      id: ''
+      id: '', 
+      userToken: '',
     }
     this.getQuotes = this.getQuotes.bind(this)
     this.toggleShowQuotes = this.toggleShowQuotes.bind(this)
@@ -31,6 +34,9 @@ class App extends Component {
     this.handleAddQuote = this.handleAddQuote.bind(this)
     this.handleEditQuote = this.handleEditQuote.bind(this)
     this.handleDeleteQuote = this.handleDeleteQuote.bind(this)
+    this.toggleShowRegisterUser = this.toggleShowRegisterUser.bind(this)
+    this.toggleShowLoginUser = this.toggleShowLoginUser.bind(this)
+    this.logToken = this.logToken.bind(this)
   }
 
 
@@ -53,6 +59,25 @@ class App extends Component {
   toggleShowCreateQuote(){
     this.setState({
       showCreateQuote: !this.state.showCreateQuote
+    })
+  }
+
+  toggleShowRegisterUser(){
+    this.setState({
+      showRegisterUser: !this.state.showRegisterUser
+    })
+  }
+
+  toggleShowLoginUser(){
+    this.setState({
+      showLoginUser: !this.state.showLoginUser
+    })
+  }
+
+  logToken(token , username){
+    this.setState({
+      userToken: token,
+      username : username,
     })
   }
 
@@ -107,9 +132,9 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-          <button>LOGIN</button>
+          <button onClick={this.toggleShowLoginUser} >LOGIN</button>
           <button>LOGOUT</button>
-          <button>REGISTER USER</button>
+          <button onClick={this.toggleShowRegisterUser}>REGISTER USER</button>
         </div>
         <h1>Mfg Manager App</h1>
         <div>
@@ -119,6 +144,14 @@ class App extends Component {
           <button onClick={this.toggleShowCreateQuote}>Create Quote</button>
           <button>Create Open Order</button>
         </div>
+        {
+          this.state.showLoginUser && 
+          <LoginUser toggleShowLoginUser={this.toggleShowLoginUser} logToken={this.logToken} />
+        }
+        {
+          this.state.showRegisterUser && 
+          <RegisterUser toggleShowRegisterUser={this.toggleShowRegisterUser} />
+        }
         {
           this.state.showQuoteUpdate &&
           <UpdateQuote quote={this.state.quote} toggleShowQuoteUpdate={this.toggleShowQuoteUpdate} getQuotes={this.getQuotes}/>

@@ -88,6 +88,13 @@ class App extends Component {
       quotes: copyQuotes
     })
   }
+  //************** */
+  sessionDelete(){
+    console.log('session delete clicked')
+    console.log(sessionStorage)
+    // sessionStorage.removeItem('sessionid')
+    sessionStorage.clear()
+  }
 
   handleEditQuote(event){
     this.toggleShowQuoteUpdate()
@@ -133,7 +140,7 @@ class App extends Component {
       <div className="App">
         <div>
           <button onClick={this.toggleShowLoginUser} >LOGIN</button>
-          <button>LOGOUT</button>
+          <button onClick={this.sessionDelete}>LOGOUT</button>
           <button onClick={this.toggleShowRegisterUser}>REGISTER USER</button>
         </div>
         <h1>Mfg Manager App</h1>

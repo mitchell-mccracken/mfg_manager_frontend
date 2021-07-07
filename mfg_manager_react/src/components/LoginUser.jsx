@@ -34,6 +34,10 @@ class LoginUser extends Component{
         .then(res => res.json())
         .then(resJson => {
             console.log(resJson.user.username)
+            console.log(resJson)
+            let csrftoken = document.cookie
+            console.log('this is the csrf token')
+            console.log(csrftoken)
             let token = resJson.token
             this.props.logToken(token , resJson.user.username)
             this.setState({
@@ -44,8 +48,6 @@ class LoginUser extends Component{
         })
         .catch(error => console.log({'Error' : error}))
         console.log('user logged in')
-
-        
     }
 
     render(){
@@ -54,9 +56,9 @@ class LoginUser extends Component{
                 <h2>Register New User</h2>
                 <form onSubmit={this.handleSubmit}>
                     <label>User Name</label>
-                    <input onChange={this.handleChange} type='text' name='username' id='username' /> <br/>
+                    <input onChange={this.handleChange} type='text' name='username' id='username' value={this.state.username}/> <br/>
                     <label>Password</label>
-                    <input onChange={this.handleChange} type='text' name='password' id='password' /> <br/>
+                    <input onChange={this.handleChange} type='text' name='password' id='password' value={this.state.password}/> <br/>
 
                     <br/><input type='submit' value='Register User'/>
                 </form>

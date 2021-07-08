@@ -1,6 +1,8 @@
 import {Component} from 'react'
+import Cookies from 'universal-cookie'
 
 let baseURL = 'http://127.0.0.1:8000/quotes/api/auth/'
+let loginURL = 'http://127.0.0.1:8000/accounts/login/'
 
 class LoginUser extends Component{
     constructor(props){
@@ -19,9 +21,11 @@ class LoginUser extends Component{
         this.setState({ [event.currentTarget.id]: event.currentTarget.value })
     }
 
+
     handleSubmit(event){
         event.preventDefault()
         fetch(baseURL + 'login' , {
+        // fetch(loginURL, {
             method: 'POST',
             body: JSON.stringify({
                 username : this.state.username,
@@ -35,7 +39,7 @@ class LoginUser extends Component{
         .then(resJson => {
             console.log(resJson.user.username)
             console.log(resJson)
-            let csrftoken = document.cookie
+            let csrftoken = localStorage.getItem('token')
             console.log('this is the csrf token')
             console.log(csrftoken)
             let token = resJson.token
@@ -48,6 +52,18 @@ class LoginUser extends Component{
         })
         .catch(error => console.log({'Error' : error}))
         console.log('user logged in')
+        setTimeout(() => {
+            let newtoken = {'value' : localStorage , 'startDate' : 'sample' , 'endDate' : Date()}
+            console.log(newtoken)
+            console.log(localStorage.csrftoken)
+            // localStorage.removeItem('newtoken')
+
+            const cookies = new Cookies();
+            cookies.set('mitchToken', this.state.userToken, { path: '/' , maxAge: 10 });
+            console.log(cookies.get('myCat')); // Pacman
+
+        }, 500);
+        
     }
 
     render(){

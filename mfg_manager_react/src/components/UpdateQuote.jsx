@@ -17,7 +17,7 @@ class UpdateQuote extends Component{
         this.handleSubmit = this.handleSubmit.bind(this)
         
     }
-    
+
     componentDidMount(){
         setTimeout(() => {      //I had to add this delay for some reason it wouldn't immediately load the information from props
             this.setState({

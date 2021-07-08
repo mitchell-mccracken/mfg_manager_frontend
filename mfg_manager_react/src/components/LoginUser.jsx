@@ -37,11 +37,8 @@ class LoginUser extends Component{
         })
         .then(res => res.json())
         .then(resJson => {
-            console.log(resJson.user.username)
-            console.log(resJson)
-            let csrftoken = localStorage.getItem('token')
-            console.log('this is the csrf token')
-            console.log(csrftoken)
+            // console.log(resJson.user.username)
+            // console.log(resJson)
             let token = resJson.token
             this.props.logToken(token , resJson.user.username)
             this.setState({
@@ -49,6 +46,11 @@ class LoginUser extends Component{
                 password : '',
                 userToken : token
             })
+            let cookieAge = 60;     // value in seconds
+            const cookies = new Cookies();
+            cookies.set('mitchToken', resJson.token, { path: '/' , maxAge: cookieAge });
+            cookies.set('username', resJson.user.username, { path: '/' , maxAge: cookieAge });
+
         })
         .catch(error => console.log({'Error' : error}))
         console.log('user logged in')
@@ -56,11 +58,8 @@ class LoginUser extends Component{
             let newtoken = {'value' : localStorage , 'startDate' : 'sample' , 'endDate' : Date()}
             console.log(newtoken)
             console.log(localStorage.csrftoken)
-            // localStorage.removeItem('newtoken')
-
-            const cookies = new Cookies();
-            cookies.set('mitchToken', this.state.userToken, { path: '/' , maxAge: 10 });
-            console.log(cookies.get('myCat')); // Pacman
+            
+            // cookies.set('mitchToken', {'test': this.state.userToken, 'user': this.state.username}, { path: '/' , maxAge: 60 });
 
         }, 500);
         
@@ -69,14 +68,14 @@ class LoginUser extends Component{
     render(){
         return(
             <div>
-                <h2>Register New User</h2>
+                <h2>User Login</h2>
                 <form onSubmit={this.handleSubmit}>
                     <label>User Name</label>
                     <input onChange={this.handleChange} type='text' name='username' id='username' value={this.state.username}/> <br/>
                     <label>Password</label>
                     <input onChange={this.handleChange} type='text' name='password' id='password' value={this.state.password}/> <br/>
 
-                    <br/><input type='submit' value='Register User'/>
+                    <br/><input type='submit' value='Login'/>
                 </form>
             </div>
         )

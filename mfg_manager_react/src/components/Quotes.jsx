@@ -57,12 +57,17 @@ class Quotes extends Component{
                     </thead>
                     <tbody>
                         {this.props.quotes.map(quote => {
+                            let lesstime = quote.q_date_created.split('')
+                            let time=''
+                            for (let i=0 ; i<10 ; i++) {
+                                time = time.concat(lesstime[i])
+                            }
                             return(
                                 <tr key={quote.id}>
                                     <td>{quote.id}</td>
                                     <td>{quote.customer_name}</td>
                                     <td>{quote.contact_name}</td>
-                                    <td>{quote.q_date_created}</td>
+                                    <td>{time}</td>
                                     <td>{quote.q_title}</td>
                                     <td><button onClick={this.props.handleEditQuote} id={quote.id}>EDIT</button></td>
                                     <td><button onClick={this.props.handleDeleteQuote} id={quote.id}>DELETE</button></td>

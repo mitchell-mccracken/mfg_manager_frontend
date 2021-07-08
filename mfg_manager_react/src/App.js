@@ -1,9 +1,11 @@
 import {Component} from 'react'
+import Cookies from 'universal-cookie'
 import Quotes from './components/Quotes'
 import CreateQuote from './components/CreateQuote'
 import UpdateQuote from './components/UpdateQuote'
 import RegisterUser from './components/RegisterUser'
 import LoginUser from './components/LoginUser'
+
 
 let baseURL;
 
@@ -37,11 +39,19 @@ class App extends Component {
     this.toggleShowRegisterUser = this.toggleShowRegisterUser.bind(this)
     this.toggleShowLoginUser = this.toggleShowLoginUser.bind(this)
     this.logToken = this.logToken.bind(this)
+    this.logoutUser = this.logoutUser.bind(this)
   }
 
 
   componentDidMount(){
     this.getQuotes()
+    let cookie= new Cookies()
+    if(cookie.get('mitchToken')){
+      this.setState({
+        loggedIn: true,
+        username: cookie.get('username'),
+      })
+    }
   }
 
   toggleShowQuotes(){
@@ -79,6 +89,22 @@ class App extends Component {
       userToken: token,
       username : username,
     })
+  }
+
+  logoutUser(){
+    let cookie = new Cookies()
+    if (cookie.get('mitchToken')){    //not sure if I need an if statement
+      console.log('there is a token')
+      cookie.remove('mitchToken')
+      cookie.remove('username')
+      this.setState({
+        username: '',
+        userToken:'',
+      })
+    }
+    else{
+      console.log('no token')
+    }
   }
 
   handleAddQuote(quote){
@@ -123,7 +149,6 @@ class App extends Component {
           const findIndex = this.state.quotes.findIndex(quote => quote._id === event.target.id)
           const copyQuotes = [...this.state.quotes]
           copyQuotes.splice(findIndex, 1)
-
           this.setState({
             quotes: copyQuotes
           })
@@ -140,8 +165,10 @@ class App extends Component {
       <div className="App">
         <div>
           <button onClick={this.toggleShowLoginUser} >LOGIN</button>
-          <button onClick={this.sessionDelete}>LOGOUT</button>
+          {/* <button onClick={this.sessionDelete}>LOGOUT</button> */}
+          <button onClick={this.logoutUser}>LOGOUT</button>
           <button onClick={this.toggleShowRegisterUser}>REGISTER USER</button>
+          <p>{this.state.username}</p>
         </div>
         <h1>Mfg Manager App</h1>
         <div>
@@ -165,7 +192,7 @@ class App extends Component {
         }
         {
           this.state.showQuotes && 
-          <Quotes quotes={this.state.quotes} handleEditQuote={this.handleEditQuote} handleDeleteQuote={this.handleDeleteQuote} /> 
+          <Quotes quotes={this.state.quotes} handleEditQuote={this.handleEditQuote} handleDeleteQuote={this.handleDeleteQuote} getQuotes={this.getQuotes}/> 
         } 
         {
           this.state.showCreateQuote &&

@@ -112,6 +112,7 @@ class UpdateQuote extends Component{
 
                     <br/><input type='submit' value='Edit Quote'/>
                 </form>
+                <button>Create Open Order</button>
 
             </div>
         )

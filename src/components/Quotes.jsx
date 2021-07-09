@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-let baseURL = 'http://127.0.0.1:8000/api/'      //I don't think this is needed
+// let baseURL = 'http://127.0.0.1:8000/api/'      //I don't think this is needed
 
 class Quotes extends Component{
     constructor(props){

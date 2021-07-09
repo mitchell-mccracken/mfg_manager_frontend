@@ -13,7 +13,7 @@ let baseURL;
 //   }
 
 if ( window.location.origin === "https://mfg-manager-frontend.herokuapp.com"){
-baseURL = 'https://mfg-manager-api.herokuapp.com/'
+baseURL = 'https://mfg-manager-api.herokuapp.com/api/'
 } else {
 baseURL = 'http://127.0.0.1:8000/api/'
 }

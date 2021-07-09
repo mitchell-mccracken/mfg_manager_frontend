@@ -1,6 +1,14 @@
 import {Component} from 'react'
 
-let baseURL = 'http://127.0.0.1:8000/api/'
+let baseURL;
+// let baseURL = 'http://127.0.0.1:8000/api/'
+
+//added this section for heroku deployment
+if (process.env.NODE_ENV === 'development') {
+    baseURL = 'http://127.0.0.1:8000/api/';
+  } else {
+    baseURL = 'https://mfg-manager-api.herokuapp.com/';
+  }
 
 
 class CreateQuote extends Component{

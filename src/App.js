@@ -10,7 +10,14 @@ import LoginUser from './components/LoginUser'
 let baseURL;
 
 // baseURL = 'http://127.0.0.1:8000/api/'
-baseURL = 'http://127.0.0.1:8000/api/'
+// baseURL = 'http://127.0.0.1:8000/api/'
+
+//added this section for heroku deployment
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://127.0.0.1:8000/api/';
+} else {
+  baseURL = 'https://mfg-manager-api.herokuapp.com/';
+}
 
 class App extends Component {
   constructor(props){
@@ -89,6 +96,11 @@ class App extends Component {
       userToken: token,
       username : username,
     })
+  }
+
+  //******************* */
+  sampleFunc(){
+    console.log(process.env)
   }
 
   logoutUser(){
@@ -176,7 +188,7 @@ class App extends Component {
           <button>OPEN ORDERS</button>
           <button>COMPLETED JOBS</button>
           <button onClick={this.toggleShowCreateQuote}>Create Quote</button>
-          <button>Create Open Order</button>
+          <button onClick={this.sampleFunc}>Create Open Order</button>
         </div>
         {
           this.state.showLoginUser && 

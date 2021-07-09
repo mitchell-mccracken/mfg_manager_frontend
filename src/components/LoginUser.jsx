@@ -1,8 +1,16 @@
 import {Component} from 'react'
 import Cookies from 'universal-cookie'
 
-let baseURL = 'http://127.0.0.1:8000/quotes/api/auth/'
-let loginURL = 'http://127.0.0.1:8000/accounts/login/'
+let baseURL; 
+// let baseURL = 'http://127.0.0.1:8000/quotes/api/'
+// let loginURL = 'http://127.0.0.1:8000/accounts/login/'
+
+//added this section for heroku deployment
+if (process.env.NODE_ENV === 'development') {
+    baseURL = 'http://127.0.0.1:8000/quotes/api/';
+  } else {
+    baseURL = 'https://mfg-manager-api.herokuapp.com/';
+  }
 
 class LoginUser extends Component{
     constructor(props){
@@ -24,7 +32,7 @@ class LoginUser extends Component{
 
     handleSubmit(event){
         event.preventDefault()
-        fetch(baseURL + 'login' , {
+        fetch(baseURL + 'auth/login' , {
         // fetch(loginURL, {
             method: 'POST',
             body: JSON.stringify({

@@ -6,11 +6,17 @@ let baseURL;
 // let loginURL = 'http://127.0.0.1:8000/accounts/login/'
 
 //added this section for heroku deployment
-if (process.env.NODE_ENV === 'development') {
-    baseURL = 'http://127.0.0.1:8000/quotes/api/';
-  } else {
-    baseURL = 'https://mfg-manager-api.herokuapp.com/';
-  }
+// if (process.env.NODE_ENV === 'development') {
+//     baseURL = 'http://127.0.0.1:8000/quotes/api/';
+//   } else {
+//     baseURL = 'https://mfg-manager-api.herokuapp.com/';
+//   }
+
+if ( window.location.origin === "https://mfg-manager-frontend.herokuapp.com"){
+baseURL = 'https://mfg-manager-api.herokuapp.com/'
+} else {
+baseURL = 'http://127.0.0.1:8000/api/'
+}
 
 class LoginUser extends Component{
     constructor(props){

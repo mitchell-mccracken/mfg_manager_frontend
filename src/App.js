@@ -13,11 +13,18 @@ let baseURL;
 // baseURL = 'http://127.0.0.1:8000/api/'
 
 //added this section for heroku deployment
-if (process.env.NODE_ENV === 'development') {
-  baseURL = 'http://127.0.0.1:8000/api/';
+// if (process.env.NODE_ENV === 'development') {
+//   baseURL = 'http://127.0.0.1:8000/api/';
+// } else {
+//   baseURL = 'https://mfg-manager-api.herokuapp.com/';
+// }
+
+if ( window.location.origin === "https://mfg-manager-frontend.herokuapp.com"){
+  baseURL = 'https://mfg-manager-api.herokuapp.com/'
 } else {
-  baseURL = 'https://mfg-manager-api.herokuapp.com/';
+  baseURL = 'http://127.0.0.1:8000/api/'
 }
+
 
 class App extends Component {
   constructor(props){

@@ -196,10 +196,15 @@ class App extends Component {
     return (
       <div className="App">
         <div className="nav-buttons"> 
-          <button onClick={this.toggleShowLoginUser} >LOGIN</button>
+          {/* <button onClick={this.toggleShowLoginUser} >LOGIN</button> */}
           {/* <button onClick={this.sessionDelete}>LOGOUT</button> */}
-          <button onClick={this.logoutUser}>LOGOUT</button>
-          <button onClick={this.toggleShowRegisterUser}>REGISTER USER</button>
+          {/* <button onClick={this.logoutUser}>LOGOUT</button> */}
+          {/* <button onClick={this.toggleShowRegisterUser}>REGISTER USER</button> */}
+          <p>
+            <span onClick={this.toggleShowLoginUser}>  LOGIN </span>   
+            <span onClick={this.logoutUser} > LOGOUT </span> 
+            <span onClick={this.toggleShowRegisterUser} > REGISTER USER </span>  
+          </p>
         </div>
         {
           this.state.userName !== '' &&

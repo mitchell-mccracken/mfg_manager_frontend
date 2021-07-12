@@ -33,7 +33,7 @@ class CreateQuote extends Component{
             partDescription: '',
             partQty: '',
             partCost: '',
-            additionalNotes: '',
+            quoteNotes: '',
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -66,6 +66,7 @@ class CreateQuote extends Component{
                 part_qty: this.state.partQty,
                 part_cost: this.state.partCost,
                 quote_total: totalCost,
+                quote_notes: this.state.quoteNotes
             }) , 
             headers: {
                 'Content-Type' : 'application/json'
@@ -121,7 +122,7 @@ class CreateQuote extends Component{
                     <label>Part Cost</label>
                     <input onChange={this.handleChange} type='number' name='partCost' id='partCost' value={this.state.partCost}/> <br/>
                     <label>Additional Notes</label>
-                    <textarea onChange={this.handleChange} name='additionalNotes' id='additionalNotes' value={this.state.additionalNotes}
+                    <textarea onChange={this.handleChange} name='quoteNotes' id='quoteNotes' value={this.state.quoteNotes}
                     rows='5' cols='30'
                     ></textarea>
                     {/* <input onChange={this.handleChange} type='number' name='partCost' id='partCost' value={this.state.partCost}/>  */}

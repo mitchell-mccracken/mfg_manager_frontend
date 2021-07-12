@@ -65,6 +65,7 @@ class LoginUser extends Component{
             cookies.set('mitchToken', resJson.token, { path: '/' , maxAge: cookieAge });
             cookies.set('username', resJson.user.username, { path: '/' , maxAge: cookieAge });
             this.props.setLoggedInStatus()
+            this.props.toggleShowLoginUser()
 
         })
         .catch(error => console.log({'Error' : error}))

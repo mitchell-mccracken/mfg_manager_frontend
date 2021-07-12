@@ -18,6 +18,7 @@ class UpdateQuote extends Component{
             partDescription: '',
             partQty: '',
             partCost: '',
+            quoteNotes: '',
 
         }
         this.handleChange = this.handleChange.bind(this)
@@ -40,6 +41,7 @@ class UpdateQuote extends Component{
                 partQty: this.props.quote.part_qty,
                 partCost: this.props.quote.part_cost, 
                 quoteTotal: this.props.quote.quote_total,
+                quoteNotes: this.props.quote.quote_notes,
             })
             
         }, 100);
@@ -73,6 +75,7 @@ class UpdateQuote extends Component{
                 part_qty: this.state.partQty,
                 part_cost: this.state.partCost,
                 quote_total: totalCost,
+                quote_notes: this.state.quoteNotes,
                 })
         })
         .then(res => res.json())
@@ -91,7 +94,7 @@ class UpdateQuote extends Component{
         return(
             <div>
                 <h2>Update Quote ID:{this.props.quote.id}</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form className="update-form" onSubmit={this.handleSubmit}>
                     <label>Quote Title</label>
                     <input onChange={this.handleChange} type='text' name='quoteTitle' id='quoteTitle' value={this.state.quoteTitle}/> <br/>
                     <label>Customer Name</label>
@@ -114,10 +117,14 @@ class UpdateQuote extends Component{
                     <input onChange={this.handleChange} type='number' name='partCost' id='partCost' value={this.state.partCost}/> <br/>
                     <label>Quote Cost</label>
                     <input onChange={this.handleChange} type='number' name='quoteCost' id='quoteCost' value={this.state.quoteTotal}/> <br/>
+                    <label>Additional Notes</label>
+                    <textarea onChange={this.handleChange} name='quoteNotes' id='quoteNotes' value={this.state.quoteNotes}
+                    rows='5' cols='30'></textarea> <br/>
                     
 
-                    <br/><input type='submit' value='Edit Quote'/>
+                    <br/><input type='submit' value='Submit Edits'/>
                 </form>
+                <br/>
                 <button>Create Open Order</button>
 
             </div>

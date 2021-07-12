@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* ------------------------- */
+/* custom CSS */
+
+/* credit for table styling help -> https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l */
+table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+ thead tr {
+  background-color: #0c74a8;
+  color: #ffffff;
+  text-align: left;
+}
+
+ th,  td {
+    padding: 10px 10px;
+}
+

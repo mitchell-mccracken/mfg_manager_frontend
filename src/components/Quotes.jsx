@@ -51,6 +51,7 @@ class Quotes extends Component{
                             <th>Contact Name</th>
                             <th>Date Created</th>
                             <th>Quote Name</th>
+                            <th>Quote Total</th>
                             <th>EDIT</th>
                             <th>DELETE</th>
                         </tr>
@@ -69,6 +70,7 @@ class Quotes extends Component{
                                     <td>{quote.contact_name}</td>
                                     <td>{time}</td>
                                     <td>{quote.q_title}</td>
+                                    <td>$ {quote.quote_total}</td>
                                     <td><button onClick={this.props.handleEditQuote} id={quote.id}>EDIT</button></td>
                                     <td><button onClick={this.props.handleDeleteQuote} id={quote.id}>DELETE</button></td>
                                 </tr>

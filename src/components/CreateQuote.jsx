@@ -49,6 +49,7 @@ class CreateQuote extends Component{
     
     handleSubmit(event){
         event.preventDefault()
+        let totalCost = 1 * this.state.partCost * this.state.partQty
         fetch(baseURL + 'quotes/' , {
             method: 'POST',
             body: JSON.stringify({
@@ -63,6 +64,7 @@ class CreateQuote extends Component{
                 part_description: this.state.partDescription,
                 part_qty: this.state.partQty,
                 part_cost: this.state.partCost,
+                quote_total: totalCost,
             }) , 
             headers: {
                 'Content-Type' : 'application/json'

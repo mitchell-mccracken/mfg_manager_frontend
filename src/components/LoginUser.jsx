@@ -60,7 +60,7 @@ class LoginUser extends Component{
                 password : '',
                 userToken : token
             })
-            let cookieAge = 60;     // value in seconds
+            let cookieAge = 60 * 30;     // value in seconds
             const cookies = new Cookies();
             cookies.set('mitchToken', resJson.token, { path: '/' , maxAge: cookieAge });
             cookies.set('username', resJson.user.username, { path: '/' , maxAge: cookieAge });

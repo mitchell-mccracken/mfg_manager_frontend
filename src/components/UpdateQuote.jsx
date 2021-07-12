@@ -38,18 +38,22 @@ class UpdateQuote extends Component{
                 partNumber: this.props.quote.part_number,
                 partDescription: this.props.quote.part_description,
                 partQty: this.props.quote.part_qty,
-                partCost: this.props.quote.part_cost
+                partCost: this.props.quote.part_cost, 
+                quoteTotal: this.props.quote.quote_total,
             })
             
         }, 100);
     }
 
     handleChange(event) {
-        this.setState({ [event.currentTarget.id]: event.currentTarget.value })
+        let quoteTotal = (1 * this.state.partQty * this.state.partCost)
+        quoteTotal = quoteTotal.toFixed(2)
+        this.setState({ [event.currentTarget.id]: event.currentTarget.value, quoteTotal: quoteTotal })
     }
 
     handleSubmit(event){
         event.preventDefault()
+        let totalCost = 1 * this.state.partCost * this.state.partQty
         console.log(`${baseURL}quotes/${this.props.quote.id}/`)
         fetch(`${baseURL}quotes/${this.props.quote.id}/`, {
             method: 'PUT',
@@ -68,7 +72,7 @@ class UpdateQuote extends Component{
                 part_description: this.state.partDescription,
                 part_qty: this.state.partQty,
                 part_cost: this.state.partCost,
-
+                quote_total: totalCost,
                 })
         })
         .then(res => res.json())
@@ -108,6 +112,8 @@ class UpdateQuote extends Component{
                     <input onChange={this.handleChange} type='number' name='partQty' id='partQty' value={this.state.partQty}/> <br/>
                     <label>Part Cost</label>
                     <input onChange={this.handleChange} type='number' name='partCost' id='partCost' value={this.state.partCost}/> <br/>
+                    <label>Quote Cost</label>
+                    <input onChange={this.handleChange} type='number' name='quoteCost' id='quoteCost' value={this.state.quoteTotal}/> <br/>
                     
 
                     <br/><input type='submit' value='Edit Quote'/>

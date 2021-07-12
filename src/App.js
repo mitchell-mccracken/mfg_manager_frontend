@@ -187,8 +187,8 @@ class App extends Component {
           {/* <button onClick={this.sessionDelete}>LOGOUT</button> */}
           <button onClick={this.logoutUser}>LOGOUT</button>
           <button onClick={this.toggleShowRegisterUser}>REGISTER USER</button>
-          <p>{this.state.username}</p>
         </div>
+        <p className='top-right'>Logged in as: {this.state.username}</p>
         <h1>Mfg Manager App</h1>
         <div>
           <button onClick={this.toggleShowQuotes}>QUOTES</button>

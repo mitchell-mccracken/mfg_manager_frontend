@@ -33,6 +33,7 @@ class CreateQuote extends Component{
             partDescription: '',
             partQty: '',
             partCost: '',
+            additionalNotes: '',
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -98,7 +99,7 @@ class CreateQuote extends Component{
         return(
             <div>
                 <h2>Create a new quote</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className='quote-form'>
                 <label>Quote Title</label>
                     <input onChange={this.handleChange} type='text' name='quoteTitle' id='quoteTitle' value={this.state.quoteTitle}/> <br/>
                     <label>Customer Name</label>
@@ -119,6 +120,12 @@ class CreateQuote extends Component{
                     <input onChange={this.handleChange} type='number' name='partQty' id='partQty' value={this.state.partQty}/> <br/>
                     <label>Part Cost</label>
                     <input onChange={this.handleChange} type='number' name='partCost' id='partCost' value={this.state.partCost}/> <br/>
+                    <label>Additional Notes</label>
+                    <textarea onChange={this.handleChange} name='additionalNotes' id='additionalNotes' value={this.state.additionalNotes}
+                    rows='5' cols='30'
+                    ></textarea>
+                    {/* <input onChange={this.handleChange} type='number' name='partCost' id='partCost' value={this.state.partCost}/>  */}
+                    <br/>
 
                     <br/><input type='submit' value='Submit Quote'/>
                 </form>

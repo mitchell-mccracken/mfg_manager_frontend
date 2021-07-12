@@ -54,6 +54,8 @@ class App extends Component {
     this.toggleShowLoginUser = this.toggleShowLoginUser.bind(this)
     this.logToken = this.logToken.bind(this)
     this.logoutUser = this.logoutUser.bind(this)
+    this.checkLogin = this.checkLogin.bind(this)
+    this.setLoggedInStatus = this.setLoggedInStatus.bind(this)
   }
 
 
@@ -63,7 +65,7 @@ class App extends Component {
     if(cookie.get('mitchToken')){
       this.setState({
         loggedIn: true,
-        username: cookie.get('username'),
+        userName: cookie.get('username'),
       })
     }
   }
@@ -101,25 +103,25 @@ class App extends Component {
   logToken(token , username){
     this.setState({
       userToken: token,
-      username : username,
+      userName : username,
     })
   }
 
-  //******************* */
-  sampleFunc(){
-    console.log(process.env)
-  }
 
   logoutUser(){
     let cookie = new Cookies()
     if (cookie.get('mitchToken')){    //not sure if I need an if statement
       console.log('there is a token')
+      // console.log(cookie.get('mitchToken'))
       cookie.remove('mitchToken')
       cookie.remove('username')
       this.setState({
-        username: '',
+        userName: '',
         userToken:'',
       })
+      setTimeout(() => {
+        this.checkLogin()
+      }, 500);
     }
     else{
       console.log('no token')
@@ -133,13 +135,7 @@ class App extends Component {
       quotes: copyQuotes
     })
   }
-  //************** */
-  sessionDelete(){
-    console.log('session delete clicked')
-    console.log(sessionStorage)
-    // sessionStorage.removeItem('sessionid')
-    sessionStorage.clear()
-  }
+
 
   handleEditQuote(event){
     this.toggleShowQuoteUpdate()
@@ -178,19 +174,46 @@ class App extends Component {
       }, 100)
   }
 
+  // conditional rendering for user logged in or not
+  setLoggedInStatus(){
+    this.setState({
+      loggedIn: true,
+    })
+  }
+
+
+  checkLogin(){
+    if (this.state.loggedIn){
+      return <p className='top-right'>Logged in as: {this.state.username}</p>
+    }
+    else {
+      return <p className='top-right'>User Not Logged In</p>
+    }
+  }
+
 
   render(){
     return (
       <div className="App">
-        <div>
+        <div className="nav-buttons"> 
           <button onClick={this.toggleShowLoginUser} >LOGIN</button>
           {/* <button onClick={this.sessionDelete}>LOGOUT</button> */}
           <button onClick={this.logoutUser}>LOGOUT</button>
           <button onClick={this.toggleShowRegisterUser}>REGISTER USER</button>
         </div>
-        <p className='top-right'>Logged in as: {this.state.username}</p>
+        {
+          this.state.userName !== '' &&
+          <p className='top-right'>Logged in as: {this.state.userName}</p>
+        }
+        {
+          this.state.userName === '' &&
+          <p className='top-right'>User Not Logged In</p>
+        }
+
+        {/* {this.checkLogin()} */}
+
         <h1>Mfg Manager App</h1>
-        <div>
+        <div className="toolbar-buttons">
           <button onClick={this.toggleShowQuotes}>QUOTES</button>
           <button>OPEN ORDERS</button>
           <button>COMPLETED JOBS</button>
@@ -199,7 +222,7 @@ class App extends Component {
         </div>
         {
           this.state.showLoginUser && 
-          <LoginUser toggleShowLoginUser={this.toggleShowLoginUser} logToken={this.logToken} />
+          <LoginUser toggleShowLoginUser={this.toggleShowLoginUser} logToken={this.logToken} checkLogin={this.checkLogin} setLoggedInStatus={this.setLoggedInStatus}/>
         }
         {
           this.state.showRegisterUser && 

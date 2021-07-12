@@ -64,9 +64,9 @@ table tbody tr:nth-of-type(even) {
   width: 125px;
 }
 
-.login-form input[type='text'], input[type='password']{
+.login-form > input[type='text'], input[type='password']{
   display: inline-block;
-  width: 175px;
+  width: 250px;
 }
 
 .quote-form label{
@@ -81,10 +81,24 @@ table tbody tr:nth-of-type(even) {
 }
 
 button {
-  font-family : inherit;
+  font-family: 'Roboto Mono', monospace;
+  border-radius: 15px;
+  /* margin: 10px; */
   /* font-size: 1em; */
 }
 
 input{
   font-family: inherit;
+}
+
+.nav-buttons > button{
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.toolbar-buttons > button{
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
 }

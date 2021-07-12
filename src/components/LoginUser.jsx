@@ -64,6 +64,7 @@ class LoginUser extends Component{
             const cookies = new Cookies();
             cookies.set('mitchToken', resJson.token, { path: '/' , maxAge: cookieAge });
             cookies.set('username', resJson.user.username, { path: '/' , maxAge: cookieAge });
+            this.props.setLoggedInStatus()
 
         })
         .catch(error => console.log({'Error' : error}))
@@ -72,6 +73,7 @@ class LoginUser extends Component{
             let newtoken = {'value' : localStorage , 'startDate' : 'sample' , 'endDate' : Date()}
             console.log(newtoken)
             console.log(localStorage.csrftoken)
+            this.props.checkLogin()
             
             // cookies.set('mitchToken', {'test': this.state.userToken, 'user': this.state.username}, { path: '/' , maxAge: 60 });
 
@@ -87,7 +89,7 @@ class LoginUser extends Component{
                     <label className='label'>User Name</label>
                     <input onChange={this.handleChange} type='text' name='username' id='username' value={this.state.username}/> <br/>
                     <label>Password</label>
-                    <input onChange={this.handleChange} type='password' name='password' id='password' value={this.state.password}/> <br/>
+                    <input onChange={this.handleChange} type='password' name='password' id='password' size="50" value={this.state.password}/> <br/>
 
                     <br/><input type='submit' value='Login'/>
                 </form>

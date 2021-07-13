@@ -118,6 +118,7 @@ class App extends Component {
       this.setState({
         userName: '',
         userToken:'',
+        loggedIn: false,
       })
       setTimeout(() => {
         this.checkLogin()
@@ -219,11 +220,11 @@ class App extends Component {
 
         <h1>Mfg Manager App</h1>
         <div className="toolbar-buttons">
-          <button onClick={this.toggleShowQuotes}>QUOTES</button>
-          <button>OPEN ORDERS</button>
-          <button>COMPLETED JOBS</button>
-          <button onClick={this.toggleShowCreateQuote}>Create Quote</button>
-          <button onClick={this.sampleFunc}>Create Open Order</button>
+          <button onClick={this.toggleShowQuotes}>OPEN QUOTES</button>
+          <button className='not-working'>OPEN ORDERS</button>
+          <button className='not-working'>COMPLETED JOBS</button>
+          {/* <button onClick={this.toggleShowCreateQuote}>Create Quote</button> */}
+          {/* <button onClick={this.sampleFunc}>Create Open Order</button> */}
         </div>
         {
           this.state.showLoginUser && 
@@ -238,14 +239,15 @@ class App extends Component {
           <UpdateQuote quote={this.state.quote} toggleShowQuoteUpdate={this.toggleShowQuoteUpdate} getQuotes={this.getQuotes}/>
         }
         {
-          this.state.showQuotes && 
-          <Quotes quotes={this.state.quotes} handleEditQuote={this.handleEditQuote} handleDeleteQuote={this.handleDeleteQuote} getQuotes={this.getQuotes}/> 
-        } 
-        {
           this.state.showCreateQuote &&
           <CreateQuote handleAddQuote={this.handleAddQuote} toggleShowCreateQuote={this.toggleShowCreateQuote} getQuotes={this.getQuotes}/>
 
         }
+        {
+          this.state.showQuotes && 
+          <Quotes quotes={this.state.quotes} handleEditQuote={this.handleEditQuote} handleDeleteQuote={this.handleDeleteQuote} getQuotes={this.getQuotes} toggleShowCreateQuote={this.toggleShowCreateQuote}/> 
+        } 
+        
 
 
       </div>

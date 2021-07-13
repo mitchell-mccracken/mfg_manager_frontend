@@ -43,6 +43,8 @@ class Quotes extends Component{
     render(){
         return(
             <div>
+                <br/>
+                <button onClick={this.props.toggleShowCreateQuote}>Create New Quote</button>
                 <table>
                     <thead>
                         <tr>
@@ -63,18 +65,21 @@ class Quotes extends Component{
                             for (let i=0 ; i<10 ; i++) {
                                 time = time.concat(lesstime[i])
                             }
-                            return(
-                                <tr key={quote.id}>
-                                    <td>{quote.id}</td>
-                                    <td>{quote.customer_name}</td>
-                                    <td>{quote.contact_name}</td>
-                                    <td>{time}</td>
-                                    <td>{quote.q_title}</td>
-                                    <td>$ {quote.quote_total}</td>
-                                    <td><button onClick={this.props.handleEditQuote} id={quote.id}>EDIT</button></td>
-                                    <td><button onClick={this.props.handleDeleteQuote} id={quote.id}>DELETE</button></td>
-                                </tr>
-                            )
+                            if (quote.q_accepted == false){
+                                return(
+                                    <tr key={quote.id}>
+                                        <td>{quote.id}</td>
+                                        <td>{quote.customer_name}</td>
+                                        <td>{quote.contact_name}</td>
+                                        <td>{time}</td>
+                                        <td>{quote.q_title}</td>
+                                        <td>$ {quote.quote_total}</td>
+                                        <td><button onClick={this.props.handleEditQuote} id={quote.id}>EDIT</button></td>
+                                        <td><button onClick={this.props.handleDeleteQuote} id={quote.id}>DELETE</button></td>
+                                    </tr>
+                                )
+                            }
+                            
                         })}
                     </tbody>
                 </table>

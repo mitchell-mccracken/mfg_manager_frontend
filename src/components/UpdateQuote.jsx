@@ -23,6 +23,7 @@ class UpdateQuote extends Component{
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleOpenOrder = this.handleOpenOrder.bind(this)
         
     }
 
@@ -86,8 +87,51 @@ class UpdateQuote extends Component{
         setTimeout(() => {
             this.props.getQuotes()
         }, 100);
+    }
+
+    handleOpenOrder(event){
+        event.preventDefault()
+        console.log(baseURL + 'openorders/')
+        fetch(baseURL + 'openorders/', {
+            method: 'POST',
+            body: JSON.stringify({
+                q_id : this.props.quote.id,
+                o_title : this.props.quote.q_title,
+            }) , 
+            headers: { 'Content-Type' : 'application/json'}
+        })
+        .then(res=> res.json())
+        .then(resJson => {
+            this.setState({
+                convertToOpenOrder : true,
+            })
+            console.log('fetched')
+
+            // this section is to set the original quote state to of accepted or Notification
+            fetch(`${baseURL}quotes/${this.props.quote.id}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        q_accepted: true,
+                        date_accepted: new Date(),
+                        q_title : this.props.quote.q_title,
+                    })
+            })
+            .then(res => res.json())
+            console.log('line 124')
+            // .then(resJson => {          //I dont think this is needed
+            //     console.log('this is resJson')
+            //     console.log(resJson)
+            // })
+        })
+        .catch(error => console.log({'Error' : error}))
+        setTimeout(() => {      //I had to set this to get stop a memory leak warning
+            this.props.getQuotes()
+            this.props.toggleShowQuoteUpdate()
+        }, 200);
         
-        //******* neeed to add in someting to refresh the index **** */
     }
 
     render(){
@@ -125,8 +169,7 @@ class UpdateQuote extends Component{
                     <br/><input type='submit' value='Submit Edits'/>
                 </form>
                 <br/>
-                <button>Create Open Order</button>
-
+                <button onClick={this.handleOpenOrder}>Create Open Order</button>
             </div>
         )
     }

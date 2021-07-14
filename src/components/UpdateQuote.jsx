@@ -4,9 +4,9 @@ import {Component} from 'react'
 let baseURL;
 
 if ( window.location.origin === "https://mfg-manager-frontend.herokuapp.com"){
-baseURL = 'https://mfg-manager-api.herokuapp.com/quotes/api/'
+baseURL = 'https://mfg-manager-api.herokuapp.com/api/'
 } else {
-baseURL = 'http://127.0.0.1:8000/quotes/api/'
+baseURL = 'http://127.0.0.1:8000/api/'
 }
 
 class UpdateQuote extends Component{

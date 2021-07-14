@@ -1,7 +1,5 @@
 import {Component} from 'react'
 
-// let baseURL = 'http://127.0.0.1:8000/api/'      //I don't think this is needed
-
 class Quotes extends Component{
     constructor(props){
         super(props)
@@ -12,33 +10,14 @@ class Quotes extends Component{
             id: '',
             showUpdate: false,
         }
-        
-        // this.handleEditQuote = this.handleEditQuote.bind(this)
         this.toggleShowUpdate = this.toggleShowUpdate.bind(this)
     }
-
-    // *** decided to run this method from parent ***
-    // handleEditQuote(event){
-    //     this.toggleShowUpdate()
-    //     fetch(`${baseURL}quotes/${event.target.id}/`)
-    //     // console.log(`${baseURL}quotes/${event.target.id}`)
-    //     .then(data => { return data.json()} , err => console.log(err))
-        
-    //     .then(parsedData =>
-    //       this.setState({
-    //         quote: parsedData,
-    //         id: event.target.id,
-    //     }) , err => console.log(err))
-    // }
 
     toggleShowUpdate(){
         this.setState({
           showUpdate: !this.state.showUpdate
         })
     }
-
-    
-    
 
     render(){
         return(
@@ -79,7 +58,6 @@ class Quotes extends Component{
                                     </tr>
                                 )
                             }
-                            
                         })}
                     </tbody>
                 </table>

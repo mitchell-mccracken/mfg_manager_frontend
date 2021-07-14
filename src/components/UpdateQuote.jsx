@@ -5,7 +5,6 @@ let baseURL = 'http://127.0.0.1:8000/api/'
 class UpdateQuote extends Component{
     constructor(props){
         super(props)
-
         this.state = {
             customerName: '',
             customerAddress: '',
@@ -19,12 +18,10 @@ class UpdateQuote extends Component{
             partQty: '',
             partCost: '',
             quoteNotes: '',
-
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleOpenOrder = this.handleOpenOrder.bind(this)
-        
     }
 
     componentDidMount(){
@@ -44,7 +41,6 @@ class UpdateQuote extends Component{
                 quoteTotal: this.props.quote.quote_total,
                 quoteNotes: this.props.quote.quote_notes,
             })
-            
         }, 100);
     }
 
@@ -57,7 +53,6 @@ class UpdateQuote extends Component{
     handleSubmit(event){
         event.preventDefault()
         let totalCost = 1 * this.state.partCost * this.state.partQty
-        console.log(`${baseURL}quotes/${this.props.quote.id}/`)
         fetch(`${baseURL}quotes/${this.props.quote.id}/`, {
             method: 'PUT',
             headers: {
@@ -81,7 +76,7 @@ class UpdateQuote extends Component{
         })
         .then(res => res.json())
         .then(resJson => {
-            console.log(resJson)
+            // console.log(resJson)
         })
         this.props.toggleShowQuoteUpdate()
         setTimeout(() => {
@@ -91,7 +86,6 @@ class UpdateQuote extends Component{
 
     handleOpenOrder(event){
         event.preventDefault()
-        console.log(baseURL + 'openorders/')
         fetch(baseURL + 'openorders/', {
             method: 'POST',
             body: JSON.stringify({
@@ -103,9 +97,8 @@ class UpdateQuote extends Component{
         .then(res=> res.json())
         .then(resJson => {
             this.setState({
-                convertToOpenOrder : true,
+                convertToOpenOrder : true,      //I dont think this is used
             })
-            console.log('fetched')
 
             // this section is to set the original quote state to of accepted or Notification
             fetch(`${baseURL}quotes/${this.props.quote.id}/`, {
@@ -120,11 +113,6 @@ class UpdateQuote extends Component{
                     })
             })
             .then(res => res.json())
-            console.log('line 124')
-            // .then(resJson => {          //I dont think this is needed
-            //     console.log('this is resJson')
-            //     console.log(resJson)
-            // })
         })
         .catch(error => console.log({'Error' : error}))
         setTimeout(() => {      //I had to set this to get stop a memory leak warning
@@ -132,7 +120,6 @@ class UpdateQuote extends Component{
             this.props.getOpenOrders()
             this.props.toggleShowQuoteUpdate()
         }, 200);
-        
     }
 
     render(){
@@ -165,8 +152,6 @@ class UpdateQuote extends Component{
                     <label>Additional Notes</label>
                     <textarea onChange={this.handleChange} name='quoteNotes' id='quoteNotes' value={this.state.quoteNotes}
                     rows='5' cols='30'></textarea> <br/>
-                    
-
                     <br/><input type='submit' value='Submit Edits'/>
                 </form>
                 <br/>

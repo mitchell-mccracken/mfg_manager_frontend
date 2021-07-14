@@ -7,25 +7,13 @@ import RegisterUser from './components/RegisterUser'
 import LoginUser from './components/LoginUser'
 import OpenOrders from './components/OpenOrders'
 
-
 let baseURL;
-
-// baseURL = 'http://127.0.0.1:8000/api/'
-// baseURL = 'http://127.0.0.1:8000/api/'
-
-//added this section for heroku deployment
-// if (process.env.NODE_ENV === 'development') {
-//   baseURL = 'http://127.0.0.1:8000/api/';
-// } else {
-//   baseURL = 'https://mfg-manager-api.herokuapp.com/api/';
-// }
 
 if ( window.location.origin === "https://mfg-manager-frontend.herokuapp.com"){
   baseURL = 'https://mfg-manager-api.herokuapp.com/api/'
 } else {
   baseURL = 'http://127.0.0.1:8000/api/'
 }
-
 
 class App extends Component {
   constructor(props){
@@ -63,7 +51,6 @@ class App extends Component {
     this.setLoggedInStatus = this.setLoggedInStatus.bind(this)
   }
 
-
   componentDidMount(){
     this.getQuotes()
     this.getOpenOrders()
@@ -83,12 +70,14 @@ class App extends Component {
       showOpenOrders: false,
     })
   }
+
   toggleShowOpenOrders(){
     this.setState({
       showOpenOrders: !this.state.showOpenOrders,
       showQuotes : false,
     })
   }
+
   toggleShowQuoteUpdate(){
     this.setState({
       showQuoteUpdate: !this.state.showQuoteUpdate
@@ -120,12 +109,9 @@ class App extends Component {
     })
   }
 
-
   logoutUser(){
     let cookie = new Cookies()
-    if (cookie.get('mitchToken')){    //not sure if I need an if statement
-      console.log('there is a token')
-      // console.log(cookie.get('mitchToken'))
+    if (cookie.get('mitchToken')){
       cookie.remove('mitchToken')
       cookie.remove('username')
       this.setState({
@@ -175,7 +161,6 @@ class App extends Component {
   }
 
   handleDeleteQuote(event) {
-    // console.log(event.target.id)
     fetch(`${baseURL}quotes/${event.target.id}/`, {
       method: 'DELETE'
     })
@@ -201,7 +186,6 @@ class App extends Component {
     })
   }
 
-
   checkLogin(){
     if (this.state.loggedIn){
       return <p className='top-right'>Logged in as: {this.state.username}</p>
@@ -216,10 +200,6 @@ class App extends Component {
     return (
       <div className="App">
         <div className="nav-buttons"> 
-          {/* <button onClick={this.toggleShowLoginUser} >LOGIN</button> */}
-          {/* <button onClick={this.sessionDelete}>LOGOUT</button> */}
-          {/* <button onClick={this.logoutUser}>LOGOUT</button> */}
-          {/* <button onClick={this.toggleShowRegisterUser}>REGISTER USER</button> */}
           <p>
             <span onClick={this.toggleShowLoginUser}>  LOGIN </span>   
             <span onClick={this.logoutUser} > LOGOUT </span> 
@@ -234,16 +214,11 @@ class App extends Component {
           this.state.userName === '' &&
           <p className='top-right'>User Not Logged In</p>
         }
-
-        {/* {this.checkLogin()} */}
-
         <h1>Mfg Manager App</h1>
         <div className="toolbar-buttons">
           <button onClick={this.toggleShowQuotes}>OPEN QUOTES</button>
           <button  onClick={this.toggleShowOpenOrders}>OPEN ORDERS</button>
           <button className='not-working'>COMPLETED JOBS</button>
-          {/* <button onClick={this.toggleShowCreateQuote}>Create Quote</button> */}
-          {/* <button onClick={this.sampleFunc}>Create Open Order</button> */}
         </div>
         {
           this.state.showLoginUser && 
@@ -270,14 +245,9 @@ class App extends Component {
           this.state.showOpenOrders && 
           <OpenOrders orders={this.state.orders}/>
         }
-        
-
-
       </div>
-
     )
   }
 }
-
 
 export default App

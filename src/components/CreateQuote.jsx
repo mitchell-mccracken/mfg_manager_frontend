@@ -1,14 +1,6 @@
 import {Component} from 'react'
 
 let baseURL;
-// let baseURL = 'http://127.0.0.1:8000/api/'
-
-//added this section for heroku deployment
-// if (process.env.NODE_ENV === 'development') {
-//     baseURL = 'http://127.0.0.1:8000/api/';
-//   } else {
-//     baseURL = 'https://mfg-manager-api.herokuapp.com/';
-//   }
 
 if ( window.location.origin === "https://mfg-manager-frontend.herokuapp.com"){
 baseURL = 'https://mfg-manager-api.herokuapp.com/api/'
@@ -16,11 +8,9 @@ baseURL = 'https://mfg-manager-api.herokuapp.com/api/'
 baseURL = 'http://127.0.0.1:8000/api/'
 }
 
-
 class CreateQuote extends Component{
     constructor(props){
         super(props)
-
         this.state = {
             customerName: '',
             customerAddress: '',
@@ -39,13 +29,8 @@ class CreateQuote extends Component{
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-
     handleChange(event) {
         this.setState({ [event.currentTarget.id]: event.currentTarget.value })
-    }
-
-    convertDateFormat(dateTime){
-
     }
     
     handleSubmit(event){
@@ -95,7 +80,6 @@ class CreateQuote extends Component{
         }, 200);
     }
 
-
     render(){
         return(
             <div>
@@ -125,7 +109,6 @@ class CreateQuote extends Component{
                     <textarea onChange={this.handleChange} name='quoteNotes' id='quoteNotes' value={this.state.quoteNotes}
                     rows='5' cols='30'
                     ></textarea>
-                    {/* <input onChange={this.handleChange} type='number' name='partCost' id='partCost' value={this.state.partCost}/>  */}
                     <br/>
 
                     <br/><input type='submit' value='Submit Quote'/>

@@ -2,15 +2,6 @@ import {Component} from 'react'
 import Cookies from 'universal-cookie'
 
 let baseURL; 
-// let baseURL = 'http://127.0.0.1:8000/quotes/api/'
-// let loginURL = 'http://127.0.0.1:8000/accounts/login/'
-
-//added this section for heroku deployment
-// if (process.env.NODE_ENV === 'development') {
-//     baseURL = 'http://127.0.0.1:8000/quotes/api/';
-//   } else {
-//     baseURL = 'https://mfg-manager-api.herokuapp.com/';
-//   }
 
 if ( window.location.origin === "https://mfg-manager-frontend.herokuapp.com"){
 baseURL = 'https://mfg-manager-api.herokuapp.com/quotes/api/'
@@ -21,7 +12,6 @@ baseURL = 'http://127.0.0.1:8000/quotes/api/'
 class LoginUser extends Component{
     constructor(props){
         super(props)
-
         this.state = {
             username : '',
             password : '',
@@ -39,7 +29,6 @@ class LoginUser extends Component{
     handleSubmit(event){
         event.preventDefault()
         fetch(baseURL + 'auth/login' , {
-        // fetch(loginURL, {
             method: 'POST',
             body: JSON.stringify({
                 username : this.state.username,
@@ -51,8 +40,6 @@ class LoginUser extends Component{
         })
         .then(res => res.json())
         .then(resJson => {
-            // console.log(resJson.user.username)
-            // console.log(resJson)
             let token = resJson.token
             this.props.logToken(token , resJson.user.username)
             this.setState({
@@ -72,14 +59,8 @@ class LoginUser extends Component{
         console.log('user logged in')
         setTimeout(() => {
             let newtoken = {'value' : localStorage , 'startDate' : 'sample' , 'endDate' : Date()}
-            console.log(newtoken)
-            console.log(localStorage.csrftoken)
             this.props.checkLogin()
-            
-            // cookies.set('mitchToken', {'test': this.state.userToken, 'user': this.state.username}, { path: '/' , maxAge: 60 });
-
         }, 500);
-        
     }
 
     render(){

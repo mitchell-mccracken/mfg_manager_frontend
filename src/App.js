@@ -5,6 +5,7 @@ import CreateQuote from './components/CreateQuote'
 import UpdateQuote from './components/UpdateQuote'
 import RegisterUser from './components/RegisterUser'
 import LoginUser from './components/LoginUser'
+import OpenOrders from './components/OpenOrders'
 
 
 let baseURL;
@@ -33,18 +34,22 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       showQuotes: false,
+      showOpenOrders: false,
       showCreateQuote: false,
       showLoginUser: false,
       showRegisterUser: false,
       showQuoteUpdate: false,
       userName: '',
       quotes: [],
+      orders: [],
       quote: {},
       id: '', 
       userToken: '',
     }
     this.getQuotes = this.getQuotes.bind(this)
+    this.getOpenOrders = this.getOpenOrders.bind(this)
     this.toggleShowQuotes = this.toggleShowQuotes.bind(this)
+    this.toggleShowOpenOrders = this.toggleShowOpenOrders.bind(this)
     this.toggleShowCreateQuote = this.toggleShowCreateQuote.bind(this)
     this.toggleShowQuoteUpdate = this.toggleShowQuoteUpdate.bind(this)
     this.handleAddQuote = this.handleAddQuote.bind(this)
@@ -61,6 +66,7 @@ class App extends Component {
 
   componentDidMount(){
     this.getQuotes()
+    this.getOpenOrders()
     let cookie= new Cookies()
     if(cookie.get('mitchToken')){
       this.setState({
@@ -74,6 +80,13 @@ class App extends Component {
     this.setState({
       showQuotes: !this.state.showQuotes,
       showQuoteUpdate: false,
+      showOpenOrders: false,
+    })
+  }
+  toggleShowOpenOrders(){
+    this.setState({
+      showOpenOrders: !this.state.showOpenOrders,
+      showQuotes : false,
     })
   }
   toggleShowQuoteUpdate(){
@@ -155,6 +168,12 @@ class App extends Component {
     .then(parsedData => this.setState({quotes: parsedData}), err => console.log(err))
   }
 
+  getOpenOrders(){
+    fetch(baseURL + 'openorders/')
+    .then(data => {return data.json()} , err => console.log(err))
+    .then(parsedData => this.setState({orders: parsedData}), err => console.log(err))
+  }
+
   handleDeleteQuote(event) {
     // console.log(event.target.id)
     fetch(`${baseURL}quotes/${event.target.id}/`, {
@@ -221,7 +240,7 @@ class App extends Component {
         <h1>Mfg Manager App</h1>
         <div className="toolbar-buttons">
           <button onClick={this.toggleShowQuotes}>OPEN QUOTES</button>
-          <button className='not-working'>OPEN ORDERS</button>
+          <button  onClick={this.toggleShowOpenOrders}>OPEN ORDERS</button>
           <button className='not-working'>COMPLETED JOBS</button>
           {/* <button onClick={this.toggleShowCreateQuote}>Create Quote</button> */}
           {/* <button onClick={this.sampleFunc}>Create Open Order</button> */}
@@ -247,6 +266,10 @@ class App extends Component {
           this.state.showQuotes && 
           <Quotes quotes={this.state.quotes} handleEditQuote={this.handleEditQuote} handleDeleteQuote={this.handleDeleteQuote} getQuotes={this.getQuotes} toggleShowCreateQuote={this.toggleShowCreateQuote}/> 
         } 
+        {
+          this.state.showOpenOrders && 
+          <OpenOrders orders={this.state.orders}/>
+        }
         
 
 

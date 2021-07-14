@@ -129,6 +129,7 @@ class UpdateQuote extends Component{
         .catch(error => console.log({'Error' : error}))
         setTimeout(() => {      //I had to set this to get stop a memory leak warning
             this.props.getQuotes()
+            this.props.getOpenOrders()
             this.props.toggleShowQuoteUpdate()
         }, 200);
         

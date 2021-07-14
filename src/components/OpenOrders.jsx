@@ -48,7 +48,6 @@ class OpenOrders extends Component{
                     <thead>
                         <tr>
                             <th>Quote ID</th>
-                            <th>Order ID</th>
                             <th>Title</th>
                             <th>Start Date</th>
                             <th>Quote Name</th>
@@ -66,11 +65,10 @@ class OpenOrders extends Component{
                             return(
                                 <tr key={order.id}>
                                     <td>{order.q_id}</td>
-                                    <td>{order.id}</td>
                                     <td>{order.o_title}</td>
                                     <td>{time}</td>
-                                    <td>stuff</td>
-                                    <td>stuff</td>
+                                    <td>place holder</td>
+                                    <td>place holder</td>
                                     {/* <td><button onClick={this.props.handleEditQuote} id={quote.id}>EDIT</button></td>
                                     <td><button onClick={this.props.handleDeleteQuote} id={quote.id}>DELETE</button></td> */}
                                 </tr>

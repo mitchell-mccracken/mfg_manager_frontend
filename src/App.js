@@ -255,7 +255,7 @@ class App extends Component {
         }
         {
           this.state.showQuoteUpdate &&
-          <UpdateQuote quote={this.state.quote} toggleShowQuoteUpdate={this.toggleShowQuoteUpdate} getQuotes={this.getQuotes}/>
+          <UpdateQuote quote={this.state.quote} toggleShowQuoteUpdate={this.toggleShowQuoteUpdate} getQuotes={this.getQuotes} getOpenOrders={this.getOpenOrders}/>
         }
         {
           this.state.showCreateQuote &&
